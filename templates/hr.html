@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head><title>HR - Mini ERP</title></head>
+<body>
+    <h2>Employees</h2>
+    <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+    <br><br>
+
+    <form method="POST" action="{{ url_for('add_employee') }}">
+        <input type="text" name="name" placeholder="Employee name" required>
+        <input type="text" name="role" placeholder="Role" required>
+        <input type="text" name="contact" placeholder="Contact" required>
+        <input type="date" name="joining_date" required>
+        <button type="submit">Add Employee</button>
+    </form>
+
+    <br>
+    <table border="1" cellpadding="8">
+        <tr>
+            <th>ID</th><th>Name</th><th>Role</th><th>Contact</th><th>Joining Date</th><th>Mark Attendance</th>
+        </tr>
+        {% for e in employees %}
+        <tr>
+            <td>{{ e.id }}</td>
+            <td>{{ e.name }}</td>
+            <td>{{ e.role }}</td>
+            <td>{{ e.contact }}</td>
+            <td>{{ e.joining_date }}</td>
+            <td>
+                <form method="POST" action="{{ url_for('mark_attendance') }}" style="display:inline">
+                    <input type="hidden" name="employee_id" value="{{ e.id }}">
+                    <button name="status" value="Present" type="submit">Present</button>
+                    <button name="status" value="Absent" type="submit">Absent</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h3>Attendance Records</h3>
+    <table border="1" cellpadding="8">
+        <tr><th>Employee</th><th>Date</th><th>Status</th></tr>
+        {% for a in attendance %}
+        <tr>
+            <td>{{ a.emp_name }}</td>
+            <td>{{ a.date }}</td>
+            <td>{{ a.status }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

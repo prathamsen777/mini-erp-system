@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head><title>Sales - Mini ERP</title></head>
+<body>
+    <h2>Sales</h2>
+    <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+    <br><br>
+
+    {% if error %}<p style="color:red">{{ error }}</p>{% endif %}
+
+    <form method="POST" action="{{ url_for('add_sale') }}">
+        <select name="product_id" required>
+            <option value="">Select Product</option>
+            {% for p in products %}
+            <option value="{{ p.id }}">{{ p.name }} (Stock: {{ p.quantity }})</option>
+            {% endfor %}
+        </select>
+        <input type="text" name="customer_name" placeholder="Customer name" required>
+        <input type="number" name="quantity" placeholder="Quantity" required>
+        <button type="submit">Record Sale</button>
+    </form>
+
+    <br>
+    <table border="1" cellpadding="8">
+        <tr>
+            <th>ID</th><th>Product</th><th>Customer</th><th>Qty</th><th>Total</th><th>Date</th>
+        </tr>
+        {% for s in sales %}
+        <tr>
+            <td>{{ s.id }}</td>
+            <td>{{ s.product_name }}</td>
+            <td>{{ s.customer_name }}</td>
+            <td>{{ s.quantity }}</td>
+            <td>{{ s.total_price }}</td>
+            <td>{{ s.sale_date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

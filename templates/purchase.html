@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head><title>Purchase - Mini ERP</title></head>
+<body>
+    <h2>Purchase</h2>
+    <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+    <br><br>
+
+    <form method="POST" action="{{ url_for('add_purchase') }}">
+        <select name="product_id" required>
+            <option value="">Select Product</option>
+            {% for p in products %}
+            <option value="{{ p.id }}">{{ p.name }} (Stock: {{ p.quantity }})</option>
+            {% endfor %}
+        </select>
+        <input type="text" name="supplier_name" placeholder="Supplier name" required>
+        <input type="number" name="quantity" placeholder="Quantity" required>
+        <input type="number" step="0.01" name="cost_per_unit" placeholder="Cost per unit" required>
+        <button type="submit">Record Purchase</button>
+    </form>
+
+    <br>
+    <table border="1" cellpadding="8">
+        <tr>
+            <th>ID</th><th>Product</th><th>Supplier</th><th>Qty</th><th>Total Cost</th><th>Date</th>
+        </tr>
+        {% for p in purchases %}
+        <tr>
+            <td>{{ p.id }}</td>
+            <td>{{ p.product_name }}</td>
+            <td>{{ p.supplier_name }}</td>
+            <td>{{ p.quantity }}</td>
+            <td>{{ p.total_cost }}</td>
+            <td>{{ p.purchase_date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

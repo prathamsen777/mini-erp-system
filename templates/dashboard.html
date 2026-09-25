@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head><title>Dashboard - Mini ERP</title></head>
+<body>
+    <h2>Welcome, {{ name }}!</h2>
+    <p>This is your Mini ERP dashboard.</p>
+    <p><a href="{{ url_for('hr') }}">Go to HR</a></p>
+    <p><a href="{{ url_for('inventory') }}">Go to Inventory</a></p>
+    <p><a href="{{ url_for('purchase') }}">Go to Purchase</a></p>
+    <p><a href="{{ url_for('sales') }}">Go to Sales</a></p>
+    <a href="{{ url_for('logout') }}">Logout</a>
+</body>
+</html>
